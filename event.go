@@ -6,7 +6,21 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 )
+
+var (
+	// organization is the UEM organization that will be checked each time
+	organization string
+	baseURL      = "http://util.columbiaesc.com/uem"
+	respLimit    = 100
+)
+
+func init() {
+	if organization = os.Getenv("UEM_ORGANIZATION"); organization == "" {
+		log.Fatal("'UEM_ORGANIZATION' must be set as an environment variable")
+	}
+}
 
 // API response from http://util.columbiaesc.com/uem/help
 type data struct {
@@ -15,7 +29,7 @@ type data struct {
 }
 
 func getEventData() ([]Event, error) {
-	resp, err := http.Get("http://util.columbiaesc.com/uem?group=Application+Development+Initiative&limit=100")
+	resp, err := http.Get(fmt.Sprintf("%s?group=%s&limit=%d", baseURL, organization, respLimit))
 	if err != nil {
 		log.Printf("Failed to retrieve data from UEM api => %s", err.Error())
 		return []Event{}, fmt.Errorf("ERROR (HTTP) => %s", err.Error())
@@ -50,7 +64,7 @@ type Event struct {
 }
 
 func (e Event) Diff(g Event) string {
-	var difference string = fmt.Sprintf("Event ID: %s", e.ID)
+	var difference string = fmt.Sprintf("\nEvent ID: %s [%s]", e.ID, e.Title)
 	if e.DateStr != g.DateStr {
 		difference = fmt.Sprintf("%s\nold: %s, new: %s", difference, e.DateStr, g.DateStr)
 	}
@@ -82,5 +96,5 @@ func (e Event) Diff(g Event) string {
 		difference = fmt.Sprintf("%s\nold: %s, new: %s", difference, e.Title, g.Title)
 	}
 
-	return difference
+	return difference + "\n"
 }

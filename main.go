@@ -4,22 +4,13 @@ import (
 	"fmt"
 	_ "github.com/natebrennand/admin" // add healthcheck endpoint
 	"log"
-	"os"
 	"time"
 )
 
 var (
 	// checkInterval is the number of seconds between each check on UEM
 	checkInterval = time.Minute * 60
-	// organization is the UEM organization that will be checked each time
-	organization string
 )
-
-func init() {
-	if organization = os.Getenv("UEM_ORGANIZATION"); organization == "" {
-		log.Fatal("'UEM_ORGANIZATION' must be set as an environment variable")
-	}
-}
 
 // eventLog holds the cache of the UEM events
 type eventLog struct {
