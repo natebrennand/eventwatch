@@ -4,6 +4,7 @@
   "repository": "https://github.com/natebrennand/eventwatch",
   "keywords": ["Columbia", "Sendgrid", "Golang"],
   "env": {
+    "BUILDPACK_URL": "https://github.com/kr/heroku-buildpack-go",
     "UEM_ORGANIZATION": {
       "description": "",
       "required": true
