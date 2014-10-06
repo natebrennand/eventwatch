@@ -1,0 +1,6 @@
+{
+  "name": "Event Watch",
+  "description": "A monitoring tool to notify when UEM makes changes to events.",
+  "repository": "https://github.com/natebrennand/eventwatch",
+  "keywords": ["Columbia", "Sendgrid", "Golang"]
+}
