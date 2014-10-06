@@ -2,5 +2,28 @@
   "name": "Event Watch",
   "description": "A monitoring tool to notify when UEM makes changes to events.",
   "repository": "https://github.com/natebrennand/eventwatch",
-  "keywords": ["Columbia", "Sendgrid", "Golang"]
+  "keywords": ["Columbia", "Sendgrid", "Golang"],
+  "env": {
+    "BUILDPACK_URL": "https://github.com/kr/heroku-buildpack-go.git",
+    "UEM_ORGANIZATION": {
+      "description": "",
+      "required": true
+    },
+    "SENDGRID_USER": {
+      "description": "",
+      "required": true
+    },
+    "SENDGRID_KEY": {
+      "description": "",
+      "required": true
+    },
+    "SENDER": {
+      "description": "",
+      "required": true
+    },
+    "RECIPIENT": {
+      "description": "",
+      "required": true
+    }
+  }
 }
