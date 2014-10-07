@@ -47,6 +47,9 @@ func main() {
 		events: make(map[string]Event),
 	}
 
+	// start a useless web frontend to appease
+	go helloworld()
+
 	for {
 		log.Println("Starting to check for changes")
 		newEvents, err := getEventData()
